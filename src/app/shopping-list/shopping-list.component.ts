@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Ingredient} from "../shared/ingredient";
+import {ShoppingListService} from "./shopping-list.service";
 
 @Component({
   selector: 'rb-shopping-list',
@@ -6,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-
   items: Ingredient[] = [];
-  constructor() { }
+
+  constructor(private sls: ShoppingListService) { }
 
   ngOnInit() {
+    this.items = this.sls.getItems();
+    console.log('Fetched items: ', this.items);
   }
 
 }
