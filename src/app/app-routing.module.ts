@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {RecipesComponent} from "./recipes/recipes.component";
+import {ShoppingListComponent} from "./shopping-list/shopping-list.component";
+import { RECIPE_ROUTES } from './recipes.routes';
 
 const routes: Routes = [
-  { path: '', component:}
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'recipes', component: RecipesComponent, children: RECIPE_ROUTES },
+  { path: 'shopping-list', component: ShoppingListComponent}
 ];
 
 @NgModule({

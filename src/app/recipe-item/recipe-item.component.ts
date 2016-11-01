@@ -8,7 +8,7 @@ import { Recipe } from '../shared/recipe';
 })
 export class RecipeItemComponent {
   @Input() recipe: Recipe;
-  recipeId: number;
+  recipeId: number = 1;
 
   constructor() { }
 

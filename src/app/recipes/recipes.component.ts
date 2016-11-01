@@ -6,12 +6,6 @@ import {Recipe} from "../shared/recipe";
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
-export class RecipesComponent implements OnInit {
-
-  selectedRecipe: Recipe;
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class RecipesComponent {
 
 }
