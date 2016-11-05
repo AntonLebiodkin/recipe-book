@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -13,7 +13,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListAddComponent } from './shopping-list/shopping-list-add/shopping-list-add.component';
 import { DropdownDirective } from './dropdown.directive';
 import { ShoppingListService } from "./shopping-list/shopping-list.service";
-import {RecipeBookRoutingModule} from "./app-routing.module";
+import { RecipeBookRoutingModule } from "./app-routing.module";
 import { RecipeStartComponent } from './recipe-start.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
@@ -35,6 +35,7 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     RecipeBookRoutingModule
   ],
   providers: [ShoppingListService],

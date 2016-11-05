@@ -9,27 +9,27 @@
             id="item-name"
             required
             class="form-control"
-            ngModel
+            [ngModel]="item.name"
             name="name">
         </div>
 
         <div class="col-sm-2 form-group">
           <label for="item-amount">Amount</label>
           <input
-            type="text"
+            type="number"
             id="item-amount"
             required
             class="form-control"
-            ngModel
-            name="ammount">
+            [ngModel]="item.amount"
+            name="amount">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <button class="btn btn-success" type="submit" *ngIf="isAdd"  [disabled]="!f.valid">Add</button>
           <button class="btn btn-success" type="submit" *ngIf="!isAdd" [disabled]="!f.valid">Save</button>
-          <button class="btn btn-danger"  type="button" *ngIf="!isAdd" [disabled]="!f.valid">Delete Item</button>
-          <button class="btn btn-primary" type="button" *ngIf="!isAdd">Clear</button>
+          <button class="btn btn-danger"  type="button" *ngIf="!isAdd" (click)="onDelete(item)">Delete Item</button>
+          <button class="btn btn-primary" type="button" *ngIf="!isAdd" (click)="onClear()">Clear</button>
         </div>
       </div>
     </form>
