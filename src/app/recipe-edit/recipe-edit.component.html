@@ -1,16 +1,17 @@
 <div class="row">
   <div class="col-xs-12">
-    <form [formGroup]="recipeForm">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success">Save</button>
-          <a class="btn btn-danger">Cancel</a>
+          <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Save</button>
+          <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
         </div>
       </div>
+      <br>
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="name">Title</label>
+            <label for="name" class="bold-label">Title</label>
             <input
               type="text"
               id="name"
@@ -22,7 +23,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="image-url">Image Url</label>
+            <label for="image-url" class="bold-label">Image Url</label>
             <input
               type="text"
               id="image-url"
@@ -39,10 +40,11 @@
           </div>
         </div>
       </div>
+      <br>
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="content">Content</label>
+            <label for="content" class="bold-label">Content</label>
             <textarea
               type="text"
               id="content"
@@ -54,6 +56,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <label class="bold-label">Ingredients:</label>
           <ul class="list-group" formArrayName="ingredients">
             <div
               class="row"
@@ -72,7 +75,7 @@
                     formControlName="amount">
                 </div>
                 <div class="col-sm-2">
-                  <button class="btn btn-danger">X</button>
+                  <button class="btn btn-danger" (click)="onRemoveItem(i)">X</button>
                 </div>
               </div>
 
@@ -87,13 +90,15 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
+    <label class="bold-label">Add New Ingredient:</label>
     <div class="form-group row">
-      <div class="col-md-5"><input type="text" class="form-control"></div>
-      <div class="col-md-5"><input type="text" class="form-control"></div>
+      <div class="col-md-5"><input type="text" class="form-control" #itemName></div>
+      <div class="col-md-5"><input type="text" class="form-control" #itemAmount></div>
       <div class="col-md-2">
         <button
           type="button"
-          class="btn btn-primary">+</button>
+          class="btn btn-primary"
+          (click)="onAddItem(itemName.value, itemAmount.value)">+</button>
       </div>
     </div>
   </div>

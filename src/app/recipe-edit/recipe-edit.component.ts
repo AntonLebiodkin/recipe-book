@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { RecipeService } from "../recipes/recipe.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import {FormArray, FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import {Recipe} from "../shared/recipe";
@@ -20,7 +20,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
@@ -32,15 +33,49 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           console.log(this.recipe);
         } else {
           this.isNew = true;
-          this.recipe = null;
+          this.recipe = new Recipe();
         }
-        this.initForm();
+        this.initForm(false);
       }
     )
   }
 
+  onSubmit() {
+    const newRecipe = this.recipeForm.value;
+    if (this.isNew) {
+      this.recipeService.addRecipe(newRecipe);
+    } else {
+      this.recipeService.editRecipe(this.recipe, newRecipe);
+    }
+    this.navigateBack();
+  }
+
+  private navigateBack() {
+    this.router.navigate(['../']);
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onCancel() {
+    this.navigateBack();
+  }
+
+  onAddItem(name: string, amount: string) {
+    (<FormArray>this.recipeForm.controls['ingredients']).push(
+      new FormGroup({
+        name: new FormControl(name, Validators.required),
+        amount: new FormControl(amount, [
+          Validators.required,
+          Validators.pattern("\\d+")
+        ])
+      })
+    )
+  }
+
+  onRemoveItem(index: number) {
+    (<FormArray>this.recipeForm.controls['ingredients']).removeAt(index);
   }
 
   private initForm(isNew: boolean) {
